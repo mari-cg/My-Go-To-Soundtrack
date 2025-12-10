@@ -85,10 +85,26 @@
             align-items: center;
         }
 
-        .duration-slider {
-            color: #6f7945;
+        #duration-slider {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 50%;
+            height: 6px;
+            background: linear-gradient(to right, #6f7945 0%, #6f7945 0%, #ebdaa8 0%, #ebdaa8 100%);
+            border-radius: 4px;
+            border: 2px solid #6f7945;
+            cursor: pointer;
+            margin: 40px 0 ;
         }
-
+        #duration-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background: #6f7945;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            /*border: 2px solid #ebdaa8;*/
+        }
         .previous-song {
             max-width: 150px;
             max-height: 150px;
@@ -161,7 +177,7 @@
             <div id="artist-name">RAYE</div>
         </div>
         <div class="playing">
-            <input type="range" min="0" max="100" value="0" class="duration-slider">
+            <input type="range" min="0" max="100" value="0" id="duration-slider" class="duration-slider">
             <span class="duration-time">02:19</span>
 
         </div>
@@ -184,7 +200,6 @@
         let previous = document.querySelector(".prev");
         let play = document.getElementById("ctrlIcon");
         let next = document.querySelector(".next");
-        let slider = document.querySelector(".duration-slider");
         let previousSongImg = document.getElementById("previous-song");
         let currentSongImg = document.getElementById("current-song");
         let nextSongImg = document.getElementById("next-song");
@@ -232,7 +247,7 @@
         let songIsPlaying = false;
         let track = document.getElementById("audio");
         const playIcon = document.getElementById("ctrlIconIcon");
-
+        const slider = document.getElementById("duration-slider");
         
 
         function loadTrack(indexTrack) {
@@ -326,6 +341,12 @@
                 }
             }
         }
+
+        function updateSliderBackground() {
+            const value = (slider.value - slider.min) / (slider.max - slider.min) *100;
+            slider.style.background = `linear-gradient(to right, #6f7945 ${value}%, #ebdaa8 ${value}%)`;
+        }
+
         function songTimeUpdate() {
             if (track.duration) {
                 let remaining =  track.duration - track.currentTime;
@@ -338,6 +359,13 @@
                 trackDuration.innerHTML = "00:00"
             }
         }
+        track.addEventListener("timeupdate", () => {
+            const position = track.currentTime / track.duration * 100;
+            slider.value = position;
+            updateSliderBackground();
+        });
+        slider.addEventListener("input", updateSliderBackground);
+
         play.addEventListener("click", justPlay);
         next.addEventListener("click", nextSong);
         previous.addEventListener("click", prevSong);
