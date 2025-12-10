@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Go-To Soundtrack</title>
     <link href="https://fonts.cdnfonts.com/css/clear-sans" rel="stylesheet">
-                
+    <script src="https://kit.fontawesome.com/2d07df85b5.js" crossorigin="anonymous"></script>       
     <style>
         body {
             background-color: #ebdaa8;
@@ -43,21 +43,29 @@
 
        .banner {
         color: #7e2233;
-            display: block;
-            text-align: center;
-            background-image: 'https://s3.amazonaws.com/shecodesio-production/uploads/files/000/176/398/original/banner.png?1764970334'; 
+            display: flex;
+            align-items: center;
             max-width: 500px;
             position: relative;
             background-image: url('https://s3.amazonaws.com/shecodesio-production/uploads/files/000/176/398/original/banner.png?1764970334');
             background-size: 120%;   
             background-repeat: no-repeat;
             background-position: center;
-            color: #ebdaa8;          
+            /*color: #ebdaa8;          
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;*/
+            height: 120px;
+            padding: 10px 50px;  
+            margin: 20px auto;
+            justify-content: center;
+        }
+
+        .banner-text {
+            color: #ebdaa8;
             font-size: 20px;
             font-weight: bold;
             text-align: center;
-            padding: 10px 50px;  
-            margin: 20px;
         }
         .songs {
             display: flex;
@@ -110,16 +118,7 @@
             font-weight: bold;
             font-size: 40px;
         }
-        #ctrlIcon.play::before {
-        content: "▷"; 
        
-        }
-
-        #ctrlIcon.pause::before {
-        content: "⏸"; 
-        font-size: 40px;
-        }
-
         .info {
             text-align: center;
             margin-top: 20px;
@@ -147,7 +146,7 @@
 </head>
 <body>
     <header>My Go-To Soundtrack</header>
-    <div class="banner">Listen to some of my favorite songs!</div>
+    <div class="banner"> <span class="banner-text" >Listen to some of my favorite songs!</span> </div>
     <main>
         <div class="songs">
             <span class="album-cover">
@@ -168,7 +167,7 @@
         </div>
         <div class="controls">
             <div><p class="prev">﹤</p></div>
-            <div><p class="play" id="ctrlIcon"><i id="crtlIconIcon" class="fa-solid fa-play"></i></p></div>
+            <div><p class="play" id="ctrlIcon"><i id="ctrlIconIcon" class="fa-solid fa-play"></i></p></div>
             <div><p class="next">﹥</p></div>
         </div>
         <audio id="audio"></audio>
@@ -176,6 +175,7 @@
     </main>
     <footer></footer>
     <h1 class="red-line"></h1>
+
 
     <script>
         let artist = document.getElementById("artist-name");
@@ -266,15 +266,15 @@
         function playSong() {
             track.play();
             songIsPlaying = true;
-            playIcon.innerHTML.remove("fa-play");
-            playIcon.innerHTML.add("fa-pause");
+            playIcon.classList.remove("fa-play");
+            playIcon.classList.add("fa-pause");
         }
         
         function pauseSong() {
             track.pause();
             songIsPlaying = false;
-            playIcon.innerHTML.remove("fa-pause");
-            playIcon.innerHTML.add("fa-play")
+            playIcon.classList.remove("fa-pause");
+            playIcon.classList.add("fa-play")
         }
         function nextSong() {
             if (indexTrack < trackList.length - 1) {
