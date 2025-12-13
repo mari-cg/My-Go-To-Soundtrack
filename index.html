@@ -74,7 +74,7 @@
 
         button:hover img {
             transform: scale(1.05);
-            transition: transform o.2s ease;
+            transition: transform 0.2s ease;
         }
 
         .songs {
@@ -115,6 +115,7 @@
             padding-top: 5px;
             text-align: center;
         }
+
         @media (max-width: 600px) {
         header {
             font-size: 36px;
@@ -124,12 +125,22 @@
             flex-direction: column;
             gap: 20px;
         }
+        .vinyl-buttons {
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
         .story {
             font-size: 14px;
             padding: 0 10px;
+            max-width: 80%;
         }
         
         #embed-iframe {
+            order: 2;
+            width: 100%;
+            display: flex;
             justify-content: center;
         }
         #embed-iframe iframe {
